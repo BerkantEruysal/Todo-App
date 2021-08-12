@@ -1,20 +1,12 @@
-import uniqueIdGenerator from "./unique-id-generator"
-import {getTodoFromId} from "./data-manager"
+import uniqueIdGenerator from "./unique-id-generator.js"
+import {getTodoById , getProjectById} from "./data-manager.js"
 export const createTodo = function(project_id, title , deadline , description ) {
-    const todoObj = {project_id , title , deadline , description , isDone = false}
-    todoObj.color = dataManager.getProjectFromId(project_id).color
-    todoObj.priority = dataManager.getProjectFromId(project_id).todoList.length
+    const todoObj = {project_id , title , deadline , description , isDone : false}
+    todoObj.color = getProjectById(project_id).color
+    todoObj.priority = getProjectById(project_id).todos.length
     todoObj.id = uniqueIdGenerator()
 
     return todoObj;
-}
-
-
-export const doneTodo = function(todo_id) {
-    getTodoFromId(todo_id).isDone = true;
-}
-export const unDoneTodo = function(todo_id) {
-    getTodoFromId(todo_id).isDone = false;
 }
 
 

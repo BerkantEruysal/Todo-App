@@ -5,7 +5,7 @@ export const saveData = function(){
 
 }
 
-export const getTodoFromId = function(todo_id){
+export const getTodoById = function(todo_id){
     let returnedTodo;
     _projectList.map(project => {
         project.todos.forEach(todo => {
@@ -16,7 +16,7 @@ export const getTodoFromId = function(todo_id){
     })
     return returnedTodo
 }
-export const getProjectFromId = function(project_id){
+export const getProjectById = function(project_id){
     let returnedProject;
     _projectList.forEach(project => {
         if(project.id == project_id){
@@ -25,8 +25,9 @@ export const getProjectFromId = function(project_id){
     })
     return returnedProject
 }
-let _projectList = [{id : 1 , todos : [{id : 2}]}, {id : 3 , todos : [{id : 4}]}]
+let _projectList = [{color : "blue", title : "Default" , todos: [], isVisible : true , isDone : false , isSelected : true , id : 1 , priority : 1}]
 export const getProjectList = () => _projectList;
 export const setProjectList = (value) => _projectList = value
+export const addProjectToProjectList = (project) => _projectList.push(project)
 
 
