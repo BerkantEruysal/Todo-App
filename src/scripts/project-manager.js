@@ -30,8 +30,9 @@ export const addTodo = function(todo , project_id){
 
 export const removeTodo = function(project_id , todo_id) {
 const project = getProjectById(project_id)
-const indexOfTodo = project.todos.indexOf(getTodoById(todo_id))
-project.todos = project.todos.splice(indexOfTodo , 1)
+const indexOfTodo = getProjectById(project_id).todos.indexOf(getTodoById(todo_id))
+getProjectById(project_id).todos.splice(indexOfTodo , 1)
+
 }
 
 export const showProject = function(project_id){

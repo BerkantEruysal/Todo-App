@@ -6,6 +6,7 @@ export const createTodo = function(project_id, title , deadline , description ) 
     todoObj.priority = getProjectById(project_id).todos.length
     todoObj.id = uniqueIdGenerator()
 
+
     return todoObj;
 }
 

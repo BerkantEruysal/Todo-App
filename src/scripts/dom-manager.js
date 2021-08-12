@@ -1,4 +1,4 @@
-import { addProjectToProjectList, getProjectById, getTodoById } from "./data-manager.js"
+import { addProjectToProjectList, getProjectById, getProjectList, getTodoById, removeProjectFromProjectList } from "./data-manager.js"
 import { createTodo } from "./todo-manager.js"
 import {removeTodo , addTodo , createProject} from "./project-manager.js"
 import { getSelectedProject, setSelectedProject } from "./state-manager.js"
@@ -19,7 +19,8 @@ export const createTodoEl = function(todo_id){
     doneBtn.innerHTML = (createdTodo.isDone ? "undone" : "done")
     deleteBtn.innerHTML = "delete"
 
-    deleteBtn.addEventListener("click" , () => deleteTodo(createdTodo))
+    deleteBtn.addEventListener("click" , () => {
+        deleteTodo(todo_id)})
     doneBtn.addEventListener("click" , () => doneTodo(createdTodo , elementContainer))
 
     elementContainer.className = "todo-item"
@@ -50,6 +51,9 @@ const createProjectEl = function(project_id){
     visibilityBtn.innerHTML = (createdProject.isVisible ? "hide" : "show")
     deleteBtn.innerHTML = "Delete Proejct"
     elementContainer.style.backgroundColor = createdProject.color
+    elementContainer.id = project_id
+
+    deleteBtn.addEventListener("click" , () => deleteProject(createdProject.id))
 
     elementContainer.appendChild(title)
     elementContainer.appendChild(totalTodos)
@@ -113,10 +117,27 @@ const doneTodo = function(todo , elementContainer){
     refreshTodoElement(todo.id)
 
 } 
-const deleteTodo = function(todo){
-    document.getElementById(todo.id).remove()
-    removeTodoEl(todo.id);
-    removeTodo(todo.project_id , todo.id)
+const deleteTodo = function(todo_id){
+
+    if(getProjectById(getTodoById(todo_id).project_id).isVisible == true){
+        document.getElementById(todo_id).remove()
+        removeTodoEl(todo_id);
+    }
+    
+
+    
+    removeTodo(getTodoById(todo_id).project_id , todo_id)
+
+}
+const deleteProject = function(project_id) {
+    const todoList = [...getProjectById(project_id).todos]
+    todoList.forEach(todo =>{
+        deleteTodo(todo.id)
+    })
+
+    document.getElementById(project_id).remove();
+    removeProjectEl(project_id)
+    removeProjectFromProjectList(project_id)
 }
 const showTodoForm = function(){
     document.getElementById("todo-form").classList.remove("hidden")
@@ -143,9 +164,17 @@ const selectProjectElement = function(project_id){
     const oldSelectedProject = getSelectedProject()
     setSelectedProject(project.id)
     refreshProjectElement(oldSelectedProject)
+
+    document.getElementById("project-name").innerHTML = "Current project: : " + project.title
+    document.getElementById("project-name").style.backgroundColor = project.color
 }
 
 document.getElementById("form-todo-create").addEventListener("click" , (event) => {
+
+    if(getProjectList().length == 0){
+        alert("Please create a project first.")
+        return
+    }
     
     const title = document.getElementById("form-todo-title").value
     const description = document.getElementById("form-todo-description").value
@@ -155,6 +184,8 @@ document.getElementById("form-todo-create").addEventListener("click" , (event) =
     createTodoEl(todo.id)
     renderTodo(todo.id)
     refreshProjectElement(todo.project_id)
+
+    console.log(getProjectById(todo.project_id).todos)
 
 
 
@@ -178,8 +209,7 @@ document.getElementById("form-project-create").addEventListener("click" , () => 
 
 
 
-    document.getElementById("project-name").innerHTML = "Current project: : " + project.title
-    document.getElementById("project-name").style.backgroundColor = project.color
+
 })
 document.getElementById("create-project").addEventListener("click" , () => showProjectForm())
 document.getElementById("form-project-close").addEventListener("click" , () => hideProjectForm())
@@ -192,3 +222,4 @@ document.getElementById("form-project-close").addEventListener("click" , () => h
 //////////////////////////////////////////////
 createProjectEl(1)
     renderProject(1)
+    selectProjectElement(1)

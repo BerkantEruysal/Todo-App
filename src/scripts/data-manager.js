@@ -29,5 +29,8 @@ let _projectList = [{color : "blue", title : "Default" , todos: [], isVisible : 
 export const getProjectList = () => _projectList;
 export const setProjectList = (value) => _projectList = value
 export const addProjectToProjectList = (project) => _projectList.push(project)
+export const removeProjectFromProjectList = (project_id) => {
+    _projectList.splice(_projectList.indexOf(getProjectById(project_id)) , 1)
+}
 
 
