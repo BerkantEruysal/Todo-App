@@ -2,7 +2,7 @@ import uniqueIdGenerator from "./unique-id-generator.js"
 import {getProjectById , getTodoById , getProjectList} from "./data-manager.js"
 import { addToShowedProjectsList } from "./state-manager.js"
 export const createProject = function(color , title) {
-const projectObj = { color , title , todos : [] , isVisible : true , isDone : false , isSelected : false}
+const projectObj = { color , title , todos : [] , isVisible : true , isDone : false , isSelected : true}
 projectObj.id = uniqueIdGenerator()
 projectObj.priority = getProjectList().length
 return projectObj
@@ -35,11 +35,3 @@ getProjectById(project_id).todos.splice(indexOfTodo , 1)
 
 }
 
-export const showProject = function(project_id){
-    getProjectById(project_id).showedProject.isVisible = true;
-    addToShowedProjectsList(project_id) 
-}
-export const hideProject = function(project_id){
-    getProjectById(project_id).showedProject.isVisible = false;
-    removeFromShowedProjectsList(project_id) 
-}

@@ -12,7 +12,7 @@ export const createTodo = function(project_id, title , deadline , description ) 
 
 
 export const editTodo = function(todo_id , {project_id , title , deadline , description, isDone, color, priority}) {
-    const editedTodo = dataManager.getTodoFromId(todo_id)
+    const editedTodo = getTodoById(todo_id)
     editedTodo.project_id = project_id;
     editedTodo.title = title;
     editedTodo.deadline = deadline;

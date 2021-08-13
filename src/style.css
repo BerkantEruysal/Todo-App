@@ -11,6 +11,11 @@ footer {
   text-align: center;
   background-color: burlywood;
 }
+.hidden{
+  opacity: 0;
+  z-index: -1;
+  display: none;
+}
 .content {
   min-height: 100vh;
   background-color: cornflowerblue;
@@ -99,6 +104,12 @@ footer {
     margin: auto;
     border-radius: 3px;
 }
+#project-form{
+  background-color: rgb(70, 158, 158);
+}
 .project-list{
     background-color: rgb(74, 94, 54);
 }
+.selected-project{
+}
+.todo-edit-form

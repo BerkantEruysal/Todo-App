@@ -9,5 +9,5 @@ export const removeFromShowedProjectsList = (project_id) => { _showedProjects.sp
 export const getSelectedProject = () => _selectedProject;
 export const setSelectedProject = (value) => {
     getProjectById(_selectedProject).isSelected = false;
-    _selectedProject = value}
-    getProjectById(_selectedProject).isSelected = true;
+    _selectedProject = value
+    getProjectById(_selectedProject).isSelected = true;}
