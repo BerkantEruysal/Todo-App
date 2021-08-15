@@ -25,6 +25,7 @@ export const createTodoEl = function (todo_id) {
   const doneBtn = document.createElement("button");
   const deleteBtn = document.createElement("button");
   const editBtn = document.createElement("button");
+  const buttonDiv = document.createElement("div");
 
   title.innerHTML = createdTodo.title;
   description.innerHTML = createdTodo.description;
@@ -32,6 +33,8 @@ export const createTodoEl = function (todo_id) {
   doneBtn.innerHTML = createdTodo.isDone ? "undone" : "done";
   deleteBtn.innerHTML = "delete";
   editBtn.innerHTML = "edit";
+
+  buttonDiv.className = "button-div";
 
   deleteBtn.addEventListener("click", () => {
     deleteTodo(todo_id);
@@ -52,9 +55,10 @@ export const createTodoEl = function (todo_id) {
   elementContainer.appendChild(title);
   elementContainer.appendChild(description);
   elementContainer.appendChild(date);
-  elementContainer.appendChild(doneBtn);
-  elementContainer.appendChild(deleteBtn);
-  elementContainer.appendChild(editBtn);
+  buttonDiv.appendChild(doneBtn);
+  buttonDiv.appendChild(deleteBtn);
+  buttonDiv.appendChild(editBtn);
+  elementContainer.appendChild(buttonDiv);
 
   _todoElementList.push({
     elementContainer,
@@ -74,17 +78,19 @@ const createProjectEl = function (project_id) {
   const visibilityBtn = document.createElement("button");
   const deleteBtn = document.createElement("button");
   const editBtn = document.createElement("button");
-  const selectBtn = document.createElement("button")
+  const selectBtn = document.createElement("button");
   const isEditing = false;
 
   title.innerHTML = createdProject.title;
+  title.className = "project-title";
   totalTodos.innerHTML = `Todos in project : ${createdProject.todos.length}`;
   visibilityBtn.innerHTML = createdProject.isVisible ? "hide" : "show";
   deleteBtn.innerHTML = "Delete Project";
   editBtn.innerHTML = "Edit";
-  selectBtn.innerHTML = createdProject.isSelected ? "selected" : "select"
+  selectBtn.innerHTML = createdProject.isSelected ? "selected" : "select";
   elementContainer.style.backgroundColor = createdProject.color;
   elementContainer.id = project_id;
+  elementContainer.classList.add("project-element");
 
   deleteBtn.addEventListener("click", () => deleteProject(createdProject.id));
   editBtn.addEventListener("click", () => {
@@ -93,15 +99,24 @@ const createProjectEl = function (project_id) {
       getProjectElementById(project_id).isEditing = true;
     }
   });
-  selectBtn.addEventListener("click" , () => {if(createdProject.isSelected == false){selectProjectElement(project_id) ; refreshProjectElement(project_id)}})
-  visibilityBtn.addEventListener("click" , () => {if(getProjectById(project_id).isVisible == true){
-    hideProject(project_id)
-  }else{showProject(project_id)}})
+  selectBtn.addEventListener("click", () => {
+    if (createdProject.isSelected == false) {
+      selectProjectElement(project_id);
+      refreshProjectElement(project_id);
+    }
+  });
+  visibilityBtn.addEventListener("click", () => {
+    if (getProjectById(project_id).isVisible == true) {
+      hideProject(project_id);
+    } else {
+      showProject(project_id);
+    }
+  });
   elementContainer.appendChild(title);
   elementContainer.appendChild(totalTodos);
   elementContainer.appendChild(visibilityBtn);
   elementContainer.appendChild(editBtn);
-  elementContainer.appendChild(selectBtn)
+  elementContainer.appendChild(selectBtn);
   elementContainer.appendChild(deleteBtn);
 
   _projectElementList.push({
@@ -137,7 +152,7 @@ export const refreshTodoElement = function (todo_id) {
   refreshedTodoElement.description.innerHTML = todo.description;
   refreshedTodoElement.date.innerHTML = todo.deadline;
   refreshedTodoElement.doneBtn.innerHTML = todo.isDone ? "undone" : "done";
-  refreshedTodoElement.elementContainer.style.backgroundColor = todo.color
+  refreshedTodoElement.elementContainer.style.backgroundColor = todo.color;
 };
 export const refreshProjectElement = function (project_id) {
   const refreshedProject = getProjectElementById(project_id);
@@ -147,22 +162,27 @@ export const refreshProjectElement = function (project_id) {
   refreshedProject.visibilityBtn.innerHTML = project.isVisible
     ? "hide"
     : "show";
-  refreshedProject.selectBtn.innerHTML = project.isSelected ? "selected" : "select"  
-    refreshedProject.elementContainer.style.backgroundColor = project.color
+  refreshedProject.selectBtn.innerHTML = project.isSelected
+    ? "selected"
+    : "select";
+  refreshedProject.elementContainer.style.backgroundColor = project.color;
   if (project.isSelected) {
     refreshedProject.elementContainer.classList.add("selected-project");
-    document.getElementById("project-name").innerHTML = "Currnet project : " + project.title
+    document.getElementById("project-name").innerHTML =
+      "Currnet project : " + project.title;
   } else {
     refreshedProject.elementContainer.classList.remove("selected-project");
   }
 
-  document.getElementById("project-name").style.backgroundColor = getProjectById(getSelectedProject()).color
+  document.getElementById("project-name").style.backgroundColor =
+    getProjectById(getSelectedProject()).color;
 
-  project.todos.forEach(todo => {
-    todo.color = project.color
-    if(project.isVisible == true){   refreshTodoElement(todo.id)}
- 
-  })
+  project.todos.forEach((todo) => {
+    todo.color = project.color;
+    if (project.isVisible == true) {
+      refreshTodoElement(todo.id);
+    }
+  });
 };
 const getTodoElementById = function (todo_id) {
   let returnedTodo;
@@ -200,15 +220,13 @@ const doneTodo = function (todo, elementContainer) {
   refreshTodoElement(todo.id);
 };
 const deleteTodo = function (todo_id) {
-  const parentProject = getProjectById(getTodoById(todo_id).project_id)
+  const parentProject = getProjectById(getTodoById(todo_id).project_id);
   if (parentProject.isVisible == true) {
- 
     removeTodoEl(todo_id);
   }
 
   removeTodo(getTodoById(todo_id).project_id, todo_id);
-  refreshProjectElement(parentProject.id)
-  
+  refreshProjectElement(parentProject.id);
 };
 const deleteProject = function (project_id) {
   const todoList = [...getProjectById(project_id).todos];
@@ -219,12 +237,12 @@ const deleteProject = function (project_id) {
     selectProjectElement(getProjectList()[0].id);
   }
 
- 
   removeProjectEl(project_id);
   removeProjectFromProjectList(project_id);
 
-  if(getProjectList().length == 0){
-    document.getElementById("project-name").innerHTML = "There is no project here ;("
+  if (getProjectList().length == 0) {
+    document.getElementById("project-name").innerHTML =
+      "There is no project here ;(";
   }
 };
 const showTodoForm = function () {
@@ -253,9 +271,8 @@ const selectProjectElement = function (project_id) {
   setSelectedProject(project.id);
   refreshProjectElement(oldSelectedProject);
 
-
   document.getElementById("project-name").innerHTML =
-    "Current project: : " + project.title;
+    "Selected project: : " + project.title;
   document.getElementById("project-name").style.backgroundColor = project.color;
 };
 
@@ -319,7 +336,7 @@ const closeTodoEditForm = function (todo_id) {
 
 const createProjectEditForm = function (project_id) {
   const editedProject = getProjectById(project_id);
-  const formContainer = document.createElement("div")
+  const formContainer = document.createElement("div");
   const titleInput = document.createElement("input");
   const colorInput = document.createElement("input");
   const cancelButton = document.createElement("button");
@@ -330,15 +347,14 @@ const createProjectEditForm = function (project_id) {
   titleInput.value = editedProject.title;
   titleText.innerHTML = "Title : ";
 
-  colorInput.type = "color"
+  colorInput.type = "color";
   colorInput.value = editedProject.color;
   cancelButton.innerHTML = "X";
   saveButton.innerHTML = "save";
   colorText.innerHTML = "Color : ";
 
-  formContainer.id = `${project_id}-edit-form`
-  formContainer.className = "project-edit-form"
-
+  formContainer.id = `${project_id}-edit-form`;
+  formContainer.className = "project-edit-form";
 
   saveButton.addEventListener("click", () => {
     editProject(project_id, {
@@ -348,47 +364,62 @@ const createProjectEditForm = function (project_id) {
       priority: editedProject.priority,
       isDone: editedProject.isDone,
     });
-    refreshProjectElement(project_id)
-    closeProjectEditForm(project_id)
+    refreshProjectElement(project_id);
+    closeProjectEditForm(project_id);
   });
-  cancelButton.addEventListener("click" , () => closeProjectEditForm())
+  cancelButton.addEventListener("click", () =>
+    closeProjectEditForm(project_id)
+  );
 
-  formContainer.appendChild(cancelButton)
-  formContainer.appendChild(titleText)
-  formContainer.appendChild(titleInput)
-  formContainer.appendChild(colorText)
-  formContainer.appendChild(colorInput)
-  formContainer.appendChild(saveButton)
+  formContainer.appendChild(cancelButton);
+  formContainer.appendChild(titleText);
+  formContainer.appendChild(titleInput);
+  formContainer.appendChild(colorText);
+  formContainer.appendChild(colorInput);
+  formContainer.appendChild(saveButton);
 
-  document.getElementById(project_id).appendChild(formContainer)
+  document.getElementById(project_id).appendChild(formContainer);
 };
 const closeProjectEditForm = function (project_id) {
-  getProjectElementById(project_id).isEditing = false
-  document.getElementById(project_id + "-edit-form").remove()
+  getProjectElementById(project_id).isEditing = false;
+  document.getElementById(project_id + "-edit-form").remove();
 };
-const hideProject = function (project_id){
-  getProjectElementById(project_id).elementContainer.classList.add("hidden-project")
-  getProjectById(project_id).isVisible = false
-  getProjectById(project_id).todos.forEach(todo => {
-    removeTodoEl(todo.id)
-  })
-
-}
-const showProject = function(project_id){
-getProjectElementById(project_id).elementContainer.classList.remove("hidden-project")
-getProjectById(project_id).isVisible = true
-getProjectById(project_id).todos.forEach(todo => {
-  createTodoEl(todo.id)
-  renderTodo(todo.id)
-})
-}
-
+const hideProject = function (project_id) {
+  getProjectElementById(project_id).elementContainer.classList.add(
+    "hidden-project"
+  );
+  getProjectById(project_id).isVisible = false;
+  getProjectById(project_id).todos.forEach((todo) => {
+    removeTodoEl(todo.id);
+  });
+  refreshProjectElement(project_id);
+};
+const showProject = function (project_id) {
+  getProjectElementById(project_id).elementContainer.classList.remove(
+    "hidden-project"
+  );
+  getProjectById(project_id).isVisible = true;
+  getProjectById(project_id).todos.forEach((todo) => {
+    createTodoEl(todo.id);
+    renderTodo(todo.id);
+  });
+  refreshProjectElement(project_id);
+};
 
 document
   .getElementById("form-todo-create")
   .addEventListener("click", (event) => {
     if (getProjectList().length == 0) {
       alert("Please create a project first.");
+      return;
+    } else if (
+      document.getElementById("form-todo-title").value.replace(/\s/g, "") ==
+        "" ||
+      document
+        .getElementById("form-todo-description")
+        .value.replace(/\s/g, "") == ""
+    ) {
+      alert("Please give a title and a description to your todo");
       return;
     }
 
@@ -397,7 +428,7 @@ document
     const date = document.getElementById("form-todo-date").value;
     const todo = createTodo(getSelectedProject(), title, date, description);
     addTodo(todo, getSelectedProject());
-    if(getProjectById(getSelectedProject()).isVisible == true){
+    if (getProjectById(getSelectedProject()).isVisible == true) {
       createTodoEl(todo.id);
       renderTodo(todo.id);
     }
@@ -416,6 +447,12 @@ document
   .addEventListener("click", () => showTodoForm());
 
 document.getElementById("form-project-create").addEventListener("click", () => {
+  if (
+    document.getElementById("form-project-title").value.replace(/\s/g, "") == ""
+  ) {
+    alert("Please give a title to your new project");
+    return;
+  }
   const title = document.getElementById("form-project-title").value;
   const color = document.getElementById("form-project-color").value;
   const project = createProject(color, title);
@@ -432,9 +469,9 @@ document
   .getElementById("form-project-close")
   .addEventListener("click", () => hideProjectForm());
 
+document.getElementById("form-project-color").value = "#99CDD6";
+
 //////////////////////////////////////////////
 createProjectEl(1);
 selectProjectElement(1);
 renderProject(1);
-
-

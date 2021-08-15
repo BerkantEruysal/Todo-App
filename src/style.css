@@ -1,24 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 * {
   margin: 0;
   padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+body{
+  background-color: rgb(127, 228, 96);
+}
+p{
+  color: rgb(255, 255, 255);
+  font-weight: 600;
 }
 header {
-  background-color: blanchedalmond;
+  background-color: rgb(113, 201, 86);
   text-align: center;
+}
+header h1{
+  font-family: 'Lobster', cursive;
+  color: rgb(255, 255, 255);
 }
 
 footer {
+  background-color: rgb(113, 201, 86);
   text-align: center;
-  background-color: burlywood;
+  border-top: 1px solid hsla(0, 0%, 0%, 0.250);
+
 }
 .hidden{
   opacity: 0;
   z-index: -1;
   display: none;
+  position: absolute;
 }
 .content {
   min-height: 100vh;
-  background-color: cornflowerblue;
+
 }
 .wrapper {
   display: block;
@@ -33,17 +50,18 @@ footer {
   grid-template-columns: 1fr 2fr 1fr;
   flex-wrap: wrap;
   align-items: flex-start;
-  background-color: aqua;
+
 }
 
 
 .todo-item-manager {
   height: 500px;
-  background-color: brown;
+
+
 }
 .crt-todo{
   height: 50px;
-  background-color: burlywood;
+
   margin-bottom: 5px;
 }
 .crt-todo button{
@@ -54,14 +72,45 @@ footer {
     border-radius: 3px;
 }
 .todo-form{
-    background-color: rgb(134, 119, 98);
+   
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.205);
+    border-top: 1px solid rgba(0, 0, 0, 0.205);
+    padding-bottom: 10px;
 
 }
-
+.todo-form input{
+  width: 75%;
+  height: 25px;
+  padding: 5px;
+  margin : auto;
+  border-radius: 3px;
+  outline: none;
+  border: none;
+}
+.todo-form p{
+  text-align: center;
+  padding-top: 10px;
+  
+}
+.form-todo-close{
+  position: relative;
+  margin-left: auto;
+  width: 35px;
+}
+.form-todo-create{
+  width: 50%;
+  height: 30px;
+  margin: auto;
+  margin-top: 25px;
+}
 .todo-list {
   min-height: 500px;
+  border-left: 1px solid rgba(0, 0, 0, 0.247);
+  border-right: 1px solid rgba(0, 0, 0, 0.250);
 
-  background-color: rgb(131, 58, 58);
+
 }
 .project-name{
     text-align: center;
@@ -71,31 +120,36 @@ footer {
     margin-bottom: 5px;
 }
 .list{
-    background-color: rgb(68, 103, 104);
+
 
 }
 .todo-item{
-
+ max-width: 100%;
+ min-height: 50px;
+ margin-bottom: 25px;
+ border-bottom: 1px solid rgb(105, 105, 105);
 }
 .todo-item p{
-    display: inline;
+    
 }
-.todo-item *{
-    margin-left: 10px;
-    margin-right: 10px;
+
+.button-div{
+display: block;
+margin-left: auto ;
 }
-.todo-item button{
-    float: right;
+.button-div button{
+  min-height: 25px;
+  min-width: 50px;
 }
 
 .project-manager {
   min-height: 500px;
-  background-color: rgb(110, 85, 85);
+
 }
 .crt-project{
     height: 50px;
     margin-bottom: 5px;
-    background-color: chartreuse;
+
 }
 .crt-project button{
     height: 100%;
@@ -105,11 +159,64 @@ footer {
     border-radius: 3px;
 }
 #project-form{
-  background-color: rgb(70, 158, 158);
+
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 25px;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  margin-bottom: 10px;
+}
+#project-form p{
+  text-align: center;
+  margin-top: 10px;
+}
+#project-form input{
+  width: 75%;
+  margin: auto;
+  height: 25px;
+  border-radius: 3px;
+  outline: none;
+  border: none;
+  padding: 0;
+}
+#form-project-title{
+  padding: 5px;
+}
+#form-project-color{
+  padding: 0;
+  width: 25% !important;
+  height: 50px !important;
+  border: none;
+}
+.form-project-close{
+  width: 35px;
+  margin-left: auto;
+}
+.form-project-create{
+  height: 25px;
+  width: 50%;
+  margin: auto;
+  margin-top: 25px;
 }
 .project-list{
-    background-color: rgb(74, 94, 54);
+
 }
 .selected-project{
+  border: 3px solid rgb(229, 241, 158);
 }
-.todo-edit-form
+.project-title{
+  text-align: center;
+  color: white;
+}
+.project-element button{
+  min-width: 50px;
+
+}
+.hidden-project{
+  opacity: 50%;
+}
+.done-todo{
+  opacity: 50%;
+}

@@ -25,7 +25,7 @@ export const getProjectById = function(project_id){
     })
     return returnedProject
 }
-let _projectList = [{color : "blue", title : "Default" , todos: [], isVisible : true , isDone : false , isSelected : true , id : 1 , priority : 1}]
+let _projectList = [{color : "#FF9924", title : "Default" , todos: [], isVisible : true , isDone : false , isSelected : true , id : 1 , priority : 1}]
 export const getProjectList = () => _projectList;
 export const setProjectList = (value) => _projectList = value
 export const addProjectToProjectList = (project) => _projectList.push(project)
