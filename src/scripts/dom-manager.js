@@ -390,7 +390,7 @@ const hideProject = function (project_id) {
   );
   getProjectById(project_id).isVisible = false;
   getProjectById(project_id).todos.forEach((todo) => {
-    removeTodoEl(todo.id);
+    getTodoElementById(todo.id).elementContainer.classList.add("hidden")
   });
   refreshProjectElement(project_id);
 };
@@ -400,8 +400,7 @@ const showProject = function (project_id) {
   );
   getProjectById(project_id).isVisible = true;
   getProjectById(project_id).todos.forEach((todo) => {
-    createTodoEl(todo.id);
-    renderTodo(todo.id);
+    getTodoElementById(todo.id).elementContainer.classList.remove("hidden")
   });
   refreshProjectElement(project_id);
 };
