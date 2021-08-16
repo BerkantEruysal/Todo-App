@@ -190,7 +190,7 @@ export const refreshProjectElement = function (project_id) {
   if (project.isSelected) {
     refreshedProject.elementContainer.classList.add("selected-project");
     document.getElementById("project-name").innerHTML =
-      "Currnet project : " + project.title;
+      "Selected project : " + project.title;
   } else {
     refreshedProject.elementContainer.classList.remove("selected-project");
   }
