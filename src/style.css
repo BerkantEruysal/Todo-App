@@ -1,14 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
-body{
+body {
   background-color: rgb(127, 228, 96);
 }
-p{
+p {
   color: rgb(255, 255, 255);
   font-weight: 600;
 }
@@ -16,18 +16,17 @@ header {
   background-color: rgb(113, 201, 86);
   text-align: center;
 }
-header h1{
-  font-family: 'Lobster', cursive;
+header h1 {
+  font-family: "Lobster", cursive;
   color: rgb(255, 255, 255);
 }
 
 footer {
   background-color: rgb(113, 201, 86);
   text-align: center;
-  border-top: 1px solid hsla(0, 0%, 0%, 0.250);
-
+  border-top: 1px solid hsla(0, 0%, 0%, 0.25);
 }
-.hidden{
+.hidden {
   opacity: 0;
   z-index: -1;
   display: none;
@@ -35,7 +34,6 @@ footer {
 }
 .content {
   min-height: 100vh;
-
 }
 .wrapper {
   display: block;
@@ -50,56 +48,49 @@ footer {
   grid-template-columns: 1fr 2fr 1fr;
   flex-wrap: wrap;
   align-items: flex-start;
-
 }
-
 
 .todo-item-manager {
   height: 500px;
-
-
 }
-.crt-todo{
+.crt-todo {
   height: 50px;
 
   margin-bottom: 5px;
 }
-.crt-todo button{
-    height: 100%;
-    width: 95%;
-    display: block;
-    margin: auto;
-    border-radius: 3px;
+.crt-todo button {
+  height: 100%;
+  width: 95%;
+  display: block;
+  margin: auto;
+  border-radius: 3px;
 }
-.todo-form{
-   
-    display: flex;
-    flex-direction: column;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.205);
-    border-top: 1px solid rgba(0, 0, 0, 0.205);
-    padding-bottom: 10px;
-
+.todo-form {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.205);
+  border-top: 1px solid rgba(0, 0, 0, 0.205);
+  padding-bottom: 10px;
 }
-.todo-form input{
+.todo-form input {
   width: 75%;
   height: 25px;
   padding: 5px;
-  margin : auto;
+  margin: auto;
   border-radius: 3px;
   outline: none;
   border: none;
 }
-.todo-form p{
+.todo-form p {
   text-align: center;
   padding-top: 10px;
-  
 }
-.form-todo-close{
+.form-todo-close {
   position: relative;
   margin-left: auto;
   width: 35px;
 }
-.form-todo-create{
+.form-todo-create {
   width: 50%;
   height: 30px;
   margin: auto;
@@ -108,58 +99,50 @@ footer {
 .todo-list {
   min-height: 500px;
   border-left: 1px solid rgba(0, 0, 0, 0.247);
-  border-right: 1px solid rgba(0, 0, 0, 0.250);
-
-
+  border-right: 1px solid rgba(0, 0, 0, 0.25);
 }
-.project-name{
-    text-align: center;
-    line-height: 50px;
-    height: 50px;
-    background-color: cadetblue;
-    margin-bottom: 5px;
+.project-name {
+  text-align: center;
+  line-height: 50px;
+  height: 50px;
+  background-color: cadetblue;
+  margin-bottom: 5px;
 }
-.list{
-
-
+.list {
 }
-.todo-item{
- max-width: 100%;
- min-height: 50px;
- margin-bottom: 25px;
- border-bottom: 1px solid rgb(105, 105, 105);
+.todo-item {
+  max-width: 100%;
+  min-height: 50px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid rgb(105, 105, 105);
 }
-.todo-item p{
-    
+.todo-item p {
 }
 
-.button-div{
-display: block;
-margin-left: auto ;
+.button-div {
+  display: block;
+  margin-left: auto;
 }
-.button-div button{
+.button-div button {
   min-height: 25px;
   min-width: 50px;
 }
 
 .project-manager {
   min-height: 500px;
-
 }
-.crt-project{
-    height: 50px;
-    margin-bottom: 5px;
-
+.crt-project {
+  height: 50px;
+  margin-bottom: 5px;
 }
-.crt-project button{
-    height: 100%;
-    width: 95%;
-    display: block;
-    margin: auto;
-    border-radius: 3px;
+.crt-project button {
+  height: 100%;
+  width: 95%;
+  display: block;
+  margin: auto;
+  border-radius: 3px;
 }
-#project-form{
-
+#project-form {
   display: flex;
   flex-direction: column;
   padding-bottom: 25px;
@@ -168,11 +151,11 @@ margin-left: auto ;
   border-right: 1px solid black;
   margin-bottom: 10px;
 }
-#project-form p{
+#project-form p {
   text-align: center;
   margin-top: 10px;
 }
-#project-form input{
+#project-form input {
   width: 75%;
   margin: auto;
   height: 25px;
@@ -181,42 +164,40 @@ margin-left: auto ;
   border: none;
   padding: 0;
 }
-#form-project-title{
+#form-project-title {
   padding: 5px;
 }
-#form-project-color{
+#form-project-color {
   padding: 0;
   width: 25% !important;
   height: 50px !important;
   border: none;
 }
-.form-project-close{
+.form-project-close {
   width: 35px;
   margin-left: auto;
 }
-.form-project-create{
+.form-project-create {
   height: 25px;
   width: 50%;
   margin: auto;
   margin-top: 25px;
 }
-.project-list{
-
+.project-list {
 }
-.selected-project{
+.selected-project {
   border: 3px solid rgb(229, 241, 158);
 }
-.project-title{
+.project-title {
   text-align: center;
   color: white;
 }
-.project-element button{
+.project-element button {
   min-width: 50px;
-
 }
-.hidden-project{
+.hidden-project {
   opacity: 50%;
 }
-.done-todo{
+.done-todo {
   opacity: 50%;
 }
