@@ -1,5 +1,5 @@
 import { getProjectList } from "./data-manager.js";
-export default function uniqueIdGenerator () {
+export default function uniqueIdGenerator() {
   let allId = [];
   let returnedId = 1;
   getProjectList().forEach((project) => {
@@ -10,16 +10,15 @@ export default function uniqueIdGenerator () {
   });
 
   allId.forEach(() => {
-      if(_isIdTaken(returnedId , allId)){
-          returnedId ++;
-      }
-  })
+    if (_isIdTaken(returnedId, allId)) {
+      returnedId++;
+    }
+  });
   return returnedId;
 }
 
-
 const _isIdTaken = function (returnedId, list) {
   return list.some((listId) => {
-  return listId == returnedId
-})
+    return listId == returnedId;
+  });
 };

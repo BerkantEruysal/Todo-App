@@ -4,6 +4,7 @@ import {
   getProjectList,
   getTodoById,
   removeProjectFromProjectList,
+  saveData,
 } from "./data-manager.js";
 import { createTodo, editTodo } from "./todo-manager.js";
 import {
@@ -15,6 +16,19 @@ import {
 import { getSelectedProject, setSelectedProject } from "./state-manager.js";
 let _todoElementList = [];
 let _projectElementList = [];
+
+export const getTodoElementList = function () {
+  return _todoElementList;
+};
+export const getProjectElementList = function () {
+  return _projectElementList;
+};
+export const setTodoElementList = function (value) {
+  _todoElementList = value;
+};
+export const setProjectElementList = function (value) {
+  _projectElementList = value;
+};
 export const createTodoEl = function (todo_id) {
   let isEditing = false;
   const createdTodo = getTodoById(todo_id);
@@ -69,8 +83,9 @@ export const createTodoEl = function (todo_id) {
     id: todo_id,
     isEditing,
   });
+  saveData();
 };
-const createProjectEl = function (project_id) {
+export const createProjectEl = function (project_id) {
   const createdProject = getProjectById(project_id);
   const elementContainer = document.createElement("div");
   const title = document.createElement("h3");
@@ -92,7 +107,9 @@ const createProjectEl = function (project_id) {
   elementContainer.id = project_id;
   elementContainer.classList.add("project-element");
 
-  deleteBtn.addEventListener("click", () => deleteProject(createdProject.id));
+  deleteBtn.addEventListener("click", () => {
+    deleteProject(createdProject.id);
+  });
   editBtn.addEventListener("click", () => {
     if (getProjectElementById(project_id).isEditing == false) {
       createProjectEditForm(project_id);
@@ -130,6 +147,7 @@ const createProjectEl = function (project_id) {
     id: project_id,
     isEditing,
   });
+  saveData();
 };
 const removeTodoEl = function (todo_id) {
   _todoElementList.splice(
@@ -137,6 +155,7 @@ const removeTodoEl = function (todo_id) {
     1
   );
   document.getElementById(todo_id).remove();
+  saveData();
 };
 const removeProjectEl = function (project_id) {
   _projectElementList.splice(
@@ -144,6 +163,7 @@ const removeProjectEl = function (project_id) {
     1
   );
   document.getElementById(project_id).remove();
+  saveData();
 };
 export const refreshTodoElement = function (todo_id) {
   const refreshedTodoElement = getTodoElementById(todo_id);
@@ -153,6 +173,7 @@ export const refreshTodoElement = function (todo_id) {
   refreshedTodoElement.date.innerHTML = todo.deadline;
   refreshedTodoElement.doneBtn.innerHTML = todo.isDone ? "undone" : "done";
   refreshedTodoElement.elementContainer.style.backgroundColor = todo.color;
+  saveData();
 };
 export const refreshProjectElement = function (project_id) {
   const refreshedProject = getProjectElementById(project_id);
@@ -183,6 +204,7 @@ export const refreshProjectElement = function (project_id) {
       refreshTodoElement(todo.id);
     }
   });
+  saveData();
 };
 const getTodoElementById = function (todo_id) {
   let returnedTodo;
@@ -202,14 +224,16 @@ const getProjectElementById = function (project_id) {
   });
   return returnedProject;
 };
-const renderTodo = function (todo_id) {
+export const renderTodo = function (todo_id) {
   const tdList = document.getElementById("td-list");
   tdList.appendChild(getTodoElementById(todo_id).elementContainer);
+  saveData();
 };
-const renderProject = function (project_id) {
+export const renderProject = function (project_id) {
   document
     .getElementById("project-list")
     .appendChild(getProjectElementById(project_id).elementContainer);
+  saveData();
 };
 
 const doneTodo = function (todo, elementContainer) {
@@ -218,6 +242,7 @@ const doneTodo = function (todo, elementContainer) {
     elementContainer.classList.add("done-todo");
   } else elementContainer.classList.remove("done-todo");
   refreshTodoElement(todo.id);
+  saveData();
 };
 const deleteTodo = function (todo_id) {
   const parentProject = getProjectById(getTodoById(todo_id).project_id);
@@ -227,6 +252,7 @@ const deleteTodo = function (todo_id) {
 
   removeTodo(getTodoById(todo_id).project_id, todo_id);
   refreshProjectElement(parentProject.id);
+  saveData();
 };
 const deleteProject = function (project_id) {
   const todoList = [...getProjectById(project_id).todos];
@@ -244,6 +270,7 @@ const deleteProject = function (project_id) {
     document.getElementById("project-name").innerHTML =
       "There is no project here ;(";
   }
+  saveData();
 };
 const showTodoForm = function () {
   document.getElementById("todo-form").classList.remove("hidden");
@@ -262,7 +289,7 @@ const hideProjectForm = function () {
   document.getElementById("project-form").classList.add("hidden");
 };
 
-const selectProjectElement = function (project_id) {
+export const selectProjectElement = function (project_id) {
   const project = getProjectById(project_id);
   const projectElement = getProjectElementById(project_id);
   projectElement.elementContainer.classList.add("selected-project");
@@ -274,6 +301,7 @@ const selectProjectElement = function (project_id) {
   document.getElementById("project-name").innerHTML =
     "Selected project: : " + project.title;
   document.getElementById("project-name").style.backgroundColor = project.color;
+  saveData();
 };
 
 const createTodoEditForm = function (todo_id) {
@@ -390,9 +418,10 @@ const hideProject = function (project_id) {
   );
   getProjectById(project_id).isVisible = false;
   getProjectById(project_id).todos.forEach((todo) => {
-    getTodoElementById(todo.id).elementContainer.classList.add("hidden")
+    getTodoElementById(todo.id).elementContainer.classList.add("hidden");
   });
   refreshProjectElement(project_id);
+  saveData();
 };
 const showProject = function (project_id) {
   getProjectElementById(project_id).elementContainer.classList.remove(
@@ -400,9 +429,10 @@ const showProject = function (project_id) {
   );
   getProjectById(project_id).isVisible = true;
   getProjectById(project_id).todos.forEach((todo) => {
-    getTodoElementById(todo.id).elementContainer.classList.remove("hidden")
+    getTodoElementById(todo.id).elementContainer.classList.remove("hidden");
   });
   refreshProjectElement(project_id);
+  saveData();
 };
 
 document
@@ -435,6 +465,7 @@ document
     refreshProjectElement(todo.project_id);
 
     hideTodoForm();
+    saveData();
   });
 
 document
@@ -460,6 +491,7 @@ document.getElementById("form-project-create").addEventListener("click", () => {
   selectProjectElement(project.id);
   renderProject(project.id);
   hideProjectForm();
+  saveData();
 });
 document
   .getElementById("create-project")
@@ -471,6 +503,3 @@ document
 document.getElementById("form-project-color").value = "#99CDD6";
 
 //////////////////////////////////////////////
-createProjectEl(1);
-selectProjectElement(1);
-renderProject(1);
