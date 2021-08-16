@@ -1,6 +1,8 @@
 # Todo-App
 This is a todo web aplication to help people to manage their things to do. You can check the [live preview](https://todo-app-berkanteruysal.netlify.app/)
 
+<img src="https://i.imgur.com/C6NGY3W.gif" width="500px">
+
 #### Creating Project and Todo
 To create a todo element and a project, use related buttons.
 
