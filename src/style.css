@@ -6,14 +6,14 @@
   font-family: "Roboto", sans-serif;
 }
 body {
-  background-color: rgb(127, 228, 96);
+  background-color: rgb(215, 189, 218);
 }
 p {
   color: rgb(255, 255, 255);
   font-weight: 600;
 }
 header {
-  background-color: rgb(113, 201, 86);
+  background-color: rgb(233, 119, 243);
   text-align: center;
 }
 header h1 {
@@ -22,7 +22,7 @@ header h1 {
 }
 
 footer {
-  background-color: rgb(113, 201, 86);
+  background-color: rgb(233, 119, 243);
   text-align: center;
   border-top: 1px solid hsla(0, 0%, 0%, 0.25);
 }
@@ -186,7 +186,7 @@ footer {
 .project-list {
 }
 .selected-project {
-  border: 3px solid rgb(229, 241, 158);
+  border: 3px solid rgb(141, 7, 130);
 }
 .project-title {
   text-align: center;
